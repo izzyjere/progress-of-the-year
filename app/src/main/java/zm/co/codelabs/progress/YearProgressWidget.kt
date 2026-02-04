@@ -13,6 +13,7 @@ import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import androidx.glance.appwidget.SizeMode
 import androidx.glance.appwidget.action.actionRunCallback
+import androidx.glance.appwidget.cornerRadius
 import androidx.glance.appwidget.provideContent
 import androidx.glance.background
 import androidx.glance.layout.*
@@ -54,8 +55,8 @@ class YearProgressGlanceWidget : GlanceAppWidget() {
 
     override val sizeMode: SizeMode = SizeMode.Responsive(
         setOf(
-            DpSize(250.dp, 110.dp),
-            DpSize(250.dp, 180.dp),
+            DpSize(250.dp, 90.dp),
+            DpSize(250.dp, 140.dp),
         )
     )
 
@@ -120,15 +121,17 @@ class YearProgressGlanceWidget : GlanceAppWidget() {
         Box(
             modifier = GlanceModifier
                 .fillMaxWidth()
-                .height(18.dp)
-                .background(c.onSurface)
+                .height(24.dp)
+                .background(c.onSurfaceVariant)
+                .cornerRadius(12.dp)
         ) {
+            val progressWidth = (pct.coerceIn(0f, 1f) * 200).dp
             Box(
                 modifier = GlanceModifier
                     .fillMaxHeight()
-                    .fillMaxWidth()
-                    .width(pct.coerceIn(0f, 1f).dp)
+                    .width(progressWidth)
                     .background(c.primary)
+                    .cornerRadius(12.dp)
             ) {}
         }
     }
