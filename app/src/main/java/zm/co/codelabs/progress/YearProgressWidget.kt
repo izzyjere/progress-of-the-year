@@ -1,18 +1,22 @@
 package zm.co.codelabs.progress
 
 import android.content.Context
+import android.content.Intent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
+import androidx.glance.LocalContext
+import androidx.glance.action.Action
 import androidx.glance.action.ActionParameters
 import androidx.glance.action.clickable
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import androidx.glance.appwidget.SizeMode
 import androidx.glance.appwidget.action.actionRunCallback
+import androidx.glance.appwidget.action.actionStartActivity
 import androidx.glance.appwidget.cornerRadius
 import androidx.glance.appwidget.provideContent
 import androidx.glance.background
@@ -108,7 +112,8 @@ class YearProgressGlanceWidget : GlanceAppWidget() {
 
             Text(
                 text = "${stats.year}",
-                modifier = GlanceModifier.padding(horizontal = 10.dp, vertical = 6.dp).background(c.primaryContainer),
+                modifier = GlanceModifier.padding(horizontal = 10.dp, vertical = 6.dp)
+                    .background(c.primaryContainer),
                 style = TextStyle(fontWeight = FontWeight.Medium, color = c.onPrimaryContainer)
             )
         }
@@ -156,18 +161,35 @@ class YearProgressGlanceWidget : GlanceAppWidget() {
         }
     }
 
+    fun openCalendarAction(context: Context): Action {
+        val intent = Intent(Intent.ACTION_MAIN).apply {
+            addCategory(Intent.CATEGORY_APP_CALENDAR)
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        }
+        return actionStartActivity(intent)
+    }
+
     @Composable
     private fun Stat(label: String, value: String) {
         val c = GlanceTheme.colors
         Column {
             Text(
                 text = label,
-                style = TextStyle(color = c.onSurfaceVariant)
+                style = TextStyle(color = c.onSurfaceVariant),
             )
-            Text(
-                text = value,
-                style = TextStyle(fontWeight = FontWeight.Medium, color = c.onSurface)
-            )
+            if (label == "Day") {
+                Text(
+                    text = value,
+                    style = TextStyle(fontWeight = FontWeight.Medium, color = c.onSurface),
+                    modifier = GlanceModifier
+                        .clickable(openCalendarAction(context = LocalContext.current))
+                )
+            } else {
+                Text(
+                    text = value,
+                    style = TextStyle(fontWeight = FontWeight.Medium, color = c.onSurface)
+                )
+            }
         }
     }
 }
