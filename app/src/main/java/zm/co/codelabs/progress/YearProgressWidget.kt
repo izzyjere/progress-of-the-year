@@ -8,7 +8,6 @@ import androidx.compose.ui.unit.dp
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
-import androidx.glance.LocalContext
 import androidx.glance.action.Action
 import androidx.glance.action.ActionParameters
 import androidx.glance.action.clickable
@@ -128,6 +127,7 @@ class YearProgressGlanceWidget : GlanceAppWidget() {
                 .fillMaxWidth()
                 .height(24.dp)
                 .background(c.onSurfaceVariant)
+                .clickable(openCalendarAction())
                 .cornerRadius(12.dp)
         ) {
             val progressWidth = (pct.coerceIn(0f, 1f) * 200).dp
@@ -161,7 +161,7 @@ class YearProgressGlanceWidget : GlanceAppWidget() {
         }
     }
 
-    fun openCalendarAction(context: Context): Action {
+    fun openCalendarAction(): Action {
         val intent = Intent(Intent.ACTION_MAIN).apply {
             addCategory(Intent.CATEGORY_APP_CALENDAR)
             flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -177,19 +177,10 @@ class YearProgressGlanceWidget : GlanceAppWidget() {
                 text = label,
                 style = TextStyle(color = c.onSurfaceVariant),
             )
-            if (label == "Day") {
-                Text(
-                    text = value,
-                    style = TextStyle(fontWeight = FontWeight.Medium, color = c.onSurface),
-                    modifier = GlanceModifier
-                        .clickable(openCalendarAction(context = LocalContext.current))
-                )
-            } else {
-                Text(
-                    text = value,
-                    style = TextStyle(fontWeight = FontWeight.Medium, color = c.onSurface)
-                )
-            }
+            Text(
+                text = value,
+                style = TextStyle(fontWeight = FontWeight.Medium, color = c.onSurface)
+            )
         }
     }
 }
