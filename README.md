@@ -15,7 +15,7 @@ To build the APK yourself:
 3. The APK will be located in `app/build/outputs/apk/release/`.
 
 ## Releases
-The project uses GitHub Actions to automatically create a release and attach the APK whenever a new version tag (e.g., `v1.0.0`) is pushed to the repository.
+The project uses GitHub Actions to automatically create a release and attach the APK whenever a new version tag (e.g., [v1.0.0](https://github.com/izzyjere/progress-of-the-year/releases/download/v1.0.0/app-release.apk)) is pushed to the repository.
 
 ## Demo
 <img width="1344" height="2992" alt="image" src="https://github.com/user-attachments/assets/5e4fea84-ab26-44ff-92a8-c813dc4e1128" />
