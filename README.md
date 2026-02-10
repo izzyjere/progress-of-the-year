@@ -16,3 +16,8 @@ To build the APK yourself:
 
 ## Releases
 The project uses GitHub Actions to automatically create a release and attach the APK whenever a new version tag (e.g., `v1.0.0`) is pushed to the repository.
+
+## Demo
+<img width="1344" height="2992" alt="image" src="https://github.com/user-attachments/assets/5e4fea84-ab26-44ff-92a8-c813dc4e1128" />
+
+
